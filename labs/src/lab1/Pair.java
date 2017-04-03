@@ -20,12 +20,11 @@ public class Pair<K extends Comparable, V> implements Comparable<Pair> {
 
     @Override
     public String toString() {
-        return "{" + key.toString() + ":" + value.toString() + "}";
+        return "(" + key.toString() + ", " + value.toString() + ")";
     }
     
     @Override
     public int compareTo(Pair p) {
-        
         return this.key.compareTo(p.key);
     }
 }
