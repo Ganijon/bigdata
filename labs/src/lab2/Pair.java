@@ -1,6 +1,5 @@
 package lab2;
 
-
 public class Pair<K extends Comparable, V> implements Comparable<Pair> {
 
     private final K key;

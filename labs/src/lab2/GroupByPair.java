@@ -28,9 +28,9 @@ public class GroupByPair<K extends Comparable, V> {
     public void addValue(V value) {
         values.add(value);
     }
+    
     @Override
     public String toString() {
         return "<(" + key.toString() + ", " + values.toString() + ")>";
-
     }
 }
