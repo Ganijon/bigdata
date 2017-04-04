@@ -1,4 +1,4 @@
-package lab2;
+package lab2.mapreduce;
 
 import java.util.List;
 

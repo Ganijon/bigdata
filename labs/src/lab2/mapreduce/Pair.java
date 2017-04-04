@@ -1,4 +1,4 @@
-package lab2;
+package lab2.mapreduce;
 
 public class Pair<K extends Comparable, V> implements Comparable<Pair> {
 
