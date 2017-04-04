@@ -1,0 +1,46 @@
+Word count algorithm
+
+class Mapper
+    method Map(docid a; doc d)
+        for all term t in doc d do
+            Emit(term t; count 1)
+
+class Reducer
+    method Reduce(term t; counts [c1; c2; …])
+        sum = 0
+        for all count c in counts [c1; c2; …] do
+            sum = sum + c
+        Emit(term t; count sum)
+
+This algorithm counts the number of occurrences of every word
+in a text collection, which may be the first step in, for example,
+building a unigram language model (i.e., probability distribution
+over words in a collection).
+
+Input key-values pairs take the form of (docid, doc) pairs stored
+on the distributed file system, where the former is a unique
+identifier for the document, and the latter is the text of the
+document itself.
+
+The mapper takes an input key-value pair, tokenizes the
+document, and emits an intermediate key-value pair for every
+word: the word itself serves as the key, and the integer one
+serves as the value (denoting that we've seen the word once).
+
+The MapReduce execution framework guarantees that all values
+associated with the same key are brought together in the
+reducer. Therefore, in our word count algorithm, we simply need
+to sum up all counts (ones) associated with each word.
+
+The reducer does exactly this, and emits final key-value pairs
+with the word as the key, and the count as the value. Final
+output is written to the distributed file system, one file per
+reducer.
+
+Words within each file will be sorted by alphabetical order, and
+each file will contain roughly the same number of words.
+
+The partitioner controls the assignment of words to reducers.
+
+The output can be examined by the programmer or used as
+input to another MapReduce program.

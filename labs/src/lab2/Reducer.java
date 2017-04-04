@@ -1,36 +1,19 @@
 package lab2;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Ganijon
  */
 public class Reducer {
 
-    public List<GroupByPair> reduce(List<Pair> list) {
+    public Pair reduce(GroupByPair<?, Integer> grouped) {
 
-        List<GroupByPair> groupedList = new ArrayList<>();
+        int sum = 0;
 
-        for (Pair p : list) {
-
-            boolean found = false;
-            for (GroupByPair g : groupedList) {
-                if (g.getKey().equals(p.getKey())) {
-                    g.addValue(1);
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                GroupByPair gbp = new GroupByPair(p.getKey());
-                gbp.addValue(p.getValue());
-                groupedList.add(gbp);
-            }
+        for (Integer i : grouped.getValues()) {
+            sum += i;
         }
-
-        return groupedList;
+        
+        return new Pair(grouped.getKey(), sum);
     }
 }

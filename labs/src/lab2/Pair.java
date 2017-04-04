@@ -21,7 +21,7 @@ public class Pair<K extends Comparable, V> implements Comparable<Pair> {
 
     @Override
     public String toString() {
-        return "<" + key.toString() + ", " + value.toString() + ")>";
+        return "<(" + key.toString() + ", " + value.toString() + ")>";
     }
     
     @Override

@@ -29,6 +29,7 @@ public class Mapper {
         }
 
         Collections.sort(list);
+
         return list;
     }
 }
