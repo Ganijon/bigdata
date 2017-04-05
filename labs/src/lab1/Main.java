@@ -11,7 +11,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static final String FILE = "/lab1data.txt";
+    private static final String FILE = "/lab1/data.txt";
     private static Scanner scanner;
     private static List<Pair> list;
 

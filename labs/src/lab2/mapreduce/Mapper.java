@@ -1,35 +1,26 @@
-package lab2.mapreduce;
+package lab2.task1;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  *
  * @author Ganijon
  */
 public class Mapper {
-   
-    public List<Pair> map(String dataFile) {
 
-        List<Pair> list = new ArrayList<>();
-        Scanner scanner = new Scanner(Main.class.getResourceAsStream(dataFile));
+    public List<Pair> map(String line) {
 
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            for (String token : line.split(" ")) {
-                for (String word : token.split("-")) {
-                    if (word.length() > 0
-                            && word.chars().allMatch(Character::isLetter)) {
-                        list.add(new Pair(word.toLowerCase(), 1));
-                    }
+        List<Pair> mapOut = new ArrayList<>();
+
+        for (String token : line.split(" ")) {
+            for (String term : token.split("-")) {
+                if (term.length() > 0
+                        && term.chars().allMatch(Character::isLetter)) {
+                    mapOut.add(new Pair(term.toLowerCase(), 1));
                 }
             }
         }
-
-        Collections.sort(list);
-
-        return list;
+        return mapOut;
     }
 }

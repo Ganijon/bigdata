@@ -1,4 +1,4 @@
-package lab2.mapreduce;
+package lab2.task1;
 
 /**
  *

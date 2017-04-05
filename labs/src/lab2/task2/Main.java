@@ -1,4 +1,4 @@
-package lab2.mapfold;
+package lab2.task2;
 
 /**
  *

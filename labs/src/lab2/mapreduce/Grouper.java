@@ -1,4 +1,4 @@
-package lab2.mapreduce;
+package lab2.task1;
 
 import java.util.ArrayList;
 import java.util.List;

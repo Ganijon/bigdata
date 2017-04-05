@@ -1,0 +1,13 @@
+W1D2
+
+Question 2
+Define an array to be nice if whenever it contains 4, it also contains 3. 
+See examples below:
+[7, 6, 2, 3, 1]         //nice
+[7, 6, 2, 4, 1]         //NOT nice. 4 is there, but 3 is not there
+[3, 6, 2, 3, 4]         //nice
+[3, 4, 2, 3, 4, 7, 4]   //nice
+[1, 6, 2, 8, 2, 9]      //nice
+
+Explain how map and fold (of functional programming) can be used to determine whether or not an array is nice.
+In other words, write pseudo-code for functions f and g, specify initial value and interpretation for final value.
