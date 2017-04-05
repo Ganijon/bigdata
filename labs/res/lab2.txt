@@ -6,9 +6,10 @@ Yesterday, you created the Mapper Class. Today,  you are going to create the Red
 
 Write a Java program to accomplish the following tasks:
 - Create a GroupByPair with two data members. First member is Key. Second member is a list of Values.
-- Iterating through the sorted list of Key-Value Pair, create a new list of GroupByPair so that all values associated with the same key are grouped together and kept in one GroupByPair.
+- Iterating through the sorted list of Key-Value Pair, create a new list of GroupByPair so that all 
+values associated with the same key are grouped together and kept in one GroupByPair.
 - Print the GroupByPair list
-- Iterate through GroupBy list �sum� the values and print out (key, sum) pairs.
+- Iterate through GroupBy list sum the values and print out (key, sum) pairs.
 - Include additional print statements so that the output produced matches the sample output file attached.
 Note: 1. Use the test data from W1D1.
 Note: 2. Observe that you just simulated word count MapReduce with one Mapper and one Reducer.
