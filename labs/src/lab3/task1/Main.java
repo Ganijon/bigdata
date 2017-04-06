@@ -15,8 +15,8 @@ public class Main {
          
          Map<Integer, List<Pair>> mapOut = wc.map();
          Map<Integer, List<Pair>> partitionOut = wc.partition(mapOut);
-         Map<Integer, List<GroupByPair>> combineOut = wc.combine(partitionOut);
-         Map<Integer, List<Pair>> reduceOut = wc.reduce(combineOut);
+         Map<Integer, List<GroupByPair>> groupOut = wc.group(partitionOut);
+         Map<Integer, List<Pair>> reduceOut = wc.reduce(groupOut);
          
      }
 }

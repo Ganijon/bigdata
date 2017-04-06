@@ -27,15 +27,15 @@ public class Main {
         mapOut.stream().forEach(System.out::println);
 
         // group
-        List<GroupByPair> combineOut = new Combiner().combine(mapOut);
+        List<GroupByPair> groupOut = new Grouper().group(mapOut);
 
         System.out.println("\n Reducer Input: \n");
-        combineOut.stream().forEach(System.out::println);
+        groupOut.stream().forEach(System.out::println);
 
         // reduce
         System.out.println("\n Reducer Output: \n");
 
-        for (GroupByPair reduceIn : combineOut) {
+        for (GroupByPair reduceIn : groupOut) {
             Pair reduceOut = new Reducer().reduce(reduceIn);
             System.out.println(reduceOut);
         }

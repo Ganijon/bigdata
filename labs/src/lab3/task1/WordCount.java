@@ -69,17 +69,17 @@ public class WordCount {
         return partitionOut;
     }
 
-    public Map<Integer, List<GroupByPair>> combine(Map<Integer, List<Pair>> partitionOut) {
+    public Map<Integer, List<GroupByPair>> group(Map<Integer, List<Pair>> partitionOut) {
 
-        Map<Integer, List<GroupByPair>> combineOuts = new TreeMap<>();
+        Map<Integer, List<GroupByPair>> groupOuts = new TreeMap<>();
 
         for (int reducerId : partitionOut.keySet()) {
             List<Pair> groupIn = partitionOut.get(reducerId);
-            List<GroupByPair> groupOut = new Combiner().combine(groupIn);
-            combineOuts.put(reducerId, groupOut);
+            List<GroupByPair> groupOut = new Grouper().group(groupIn);
+            groupOuts.put(reducerId, groupOut);
         }
 
-        return combineOuts;
+        return groupOuts;
     }
 
     public Map<Integer, List<Pair>> reduce(Map<Integer, List<GroupByPair>> combineOut) {
