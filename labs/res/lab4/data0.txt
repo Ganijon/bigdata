@@ -1,2 +1,2 @@
-"cat bat" mat-pat mum.edu sat.
+"cat bat" mat-pat mum_edu sat.
 fat 'rat eat cat' mum_cs mat

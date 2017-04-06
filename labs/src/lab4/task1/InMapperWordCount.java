@@ -1,6 +1,7 @@
 package lab4.task1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -146,7 +147,7 @@ public class InMapperWordCount {
     private void printLogs() {
         for (LogKey key : logs.keySet()) {
             System.out.printf("Pairs send from Mapper %d to Reducer %d\n", key.mapperId, key.reducerId);
-            logs.get(key).stream().forEach(System.out::println);
+            logs.get(key).stream().sorted().forEach(System.out::println);
         }
     }
 

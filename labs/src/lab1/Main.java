@@ -23,7 +23,7 @@ public class Main {
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
             for (String token : line.split(" ")) {
-                token = token.replaceAll("[^a-zA-Z0-9 ._-]", "");
+                token = token.replaceAll("[^a-zA-Z0-9 _-]", "");
                 for (String word : token.split("-")) {
                     if (word.length() > 0
                             && word.chars().allMatch(Character::isLetter)) {

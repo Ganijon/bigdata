@@ -55,9 +55,9 @@ public class WordCount {
 
         for (int mapperId : mapOut.keySet()) {
             for (Pair pair : mapOut.get(mapperId)) {
-                
+
                 int reducerId = getPartition(pair.getKey());
-                
+
                 if (!partitionOut.containsKey(reducerId)) {
                     partitionOut.put(reducerId, new ArrayList<>());
                 }
@@ -94,7 +94,7 @@ public class WordCount {
             }
             reduceOuts.put(reducerId, list);
         }
-        
+
         for (int reducerId : reduceOuts.keySet()) {
             System.out.printf("Reducer %d output:\n", reducerId);
             reduceOuts.get(reducerId).stream().forEach(System.out::println);
@@ -142,7 +142,10 @@ public class WordCount {
     private void printLogs() {
         for (LogKey key : logs.keySet()) {
             System.out.printf("Pairs send from Mapper %d to Reducer %d\n", key.mapperId, key.reducerId);
-            logs.get(key).stream().forEach(System.out::println);
+            logs.get(key)
+                    .stream()
+                    .sorted()
+                    .forEach(System.out::println);
         }
     }
 

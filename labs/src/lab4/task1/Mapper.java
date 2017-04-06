@@ -19,9 +19,9 @@ public class Mapper {
     public void map(String line) {
 
         for (String token : line.split(" ")) {
-            
-            token = token.replaceAll("[^a-zA-Z0-9 ._-]", "");
-            
+
+            token = token.replaceAll("[^a-zA-Z0-9 _-]", "");
+
             for (String term : token.split("-")) {
 
                 if (term.length() > 0
