@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Ganijon
  */
-public class GroupByPair<K extends Comparable, V> {
+public class GroupByPair<K extends Comparable, V> implements Comparable<GroupByPair> {
 
     private final K key;
     private final List<V> values;
@@ -32,5 +32,10 @@ public class GroupByPair<K extends Comparable, V> {
     @Override
     public String toString() {
         return "<(" + key.toString() + ", " + values.toString() + ")>";
+    }
+    
+    @Override
+    public int compareTo(GroupByPair o) {
+        return this.key.compareTo(o.key);
     }
 }

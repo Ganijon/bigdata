@@ -1,6 +1,7 @@
 package lab2.task1;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -30,6 +31,8 @@ public class Grouper {
             }
         }
 
+        Collections.sort(groupList);
+        
         return groupList;
     }
 }

@@ -1,4 +1,4 @@
-package lab3.task1;
+package lab4.task1;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +32,7 @@ public class Grouper {
         }
 
         Collections.sort(groupList);
-        
+
         return groupList;
     }
 }
