@@ -5,11 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
-import lab2.task1.GroupByPair;
-import lab2.task1.Combiner;
-import lab2.task1.Mapper;
-import lab2.task1.Pair;
-import lab2.task1.Reducer;
 
 /**
  *

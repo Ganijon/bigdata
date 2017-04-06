@@ -2,8 +2,6 @@ package lab3.task1;
 
 import java.util.List;
 import java.util.Map;
-import lab2.task1.GroupByPair;
-import lab2.task1.Pair;
 
 /**
  *
