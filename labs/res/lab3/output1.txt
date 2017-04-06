@@ -1,0 +1,73 @@
+
+Number of Input-Splits: 3
+Number of Reducers: 4
+Mapper 0 Input:
+"cat bat" mat-pat mum.edu sat.
+fat 'rat eat cat' mum_cs mat
+Mapper 1 Input:
+bat-hat mat pat "oat
+hat rat mum_cs eat oat-pat
+Mapper 2 Input:
+zat lat-cat pat jat.
+hat rat. kat sat wat
+Mapper 0 Output: 
+<(mat, 1)>
+<(pat, 1)>
+<(eat, 1)>
+Mapper 1 Output: 
+<(bat, 1)>
+<(hat, 1)>
+<(mat, 1)>
+<(pat, 1)>
+<(rat, 1)>
+<(eat, 1)>
+<(oat, 1)>
+Mapper 2 Output: 
+<(zat, 1)>
+<(lat, 1)>
+<(cat, 1)>
+<(pat, 1)>
+<(kat, 1)>
+<(sat, 1)>
+Pairs send from Mapper 0 to Reducer 0
+<(mat, 1)>
+<(eat, 1)>
+Pairs send from Mapper 0 to Reducer 3
+<(pat, 1)>
+Pairs send from Mapper 1 to Reducer 0
+<(mat, 1)>
+<(eat, 1)>
+Pairs send from Mapper 1 to Reducer 1
+<(bat, 1)>
+<(rat, 1)>
+Pairs send from Mapper 1 to Reducer 2
+<(oat, 1)>
+Pairs send from Mapper 1 to Reducer 3
+<(hat, 1)>
+<(pat, 1)>
+Pairs send from Mapper 2 to Reducer 1
+<(zat, 1)>
+Pairs send from Mapper 2 to Reducer 2
+<(cat, 1)>
+<(kat, 1)>
+<(sat, 1)>
+Pairs send from Mapper 2 to Reducer 3
+<(lat, 1)>
+<(pat, 1)>
+Reducer 0 output:
+<(mat, 2)>
+<(eat, 2)>
+Reducer 1 output:
+<(bat, 1)>
+<(rat, 1)>
+<(zat, 1)>
+Reducer 2 output:
+<(oat, 1)>
+<(cat, 1)>
+<(kat, 1)>
+<(sat, 1)>
+Reducer 3 output:
+<(pat, 3)>
+<(hat, 1)>
+<(lat, 1)>
+BUILD SUCCESSFUL (total time: 10 seconds)

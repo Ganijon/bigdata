@@ -1,13 +1,12 @@
 package lab3.task1;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 import lab2.task1.GroupByPair;
-import lab2.task1.Grouper;
+import lab2.task1.Combiner;
 import lab2.task1.Mapper;
 import lab2.task1.Pair;
 import lab2.task1.Reducer;
@@ -44,7 +43,7 @@ public class WordCount {
             System.out.printf("Mapper %d Input:\n%s", i, inputSplits[i]);
         }
 
-        Map<Integer, List<Pair>> mapOut = new HashMap<>();
+        Map<Integer, List<Pair>> mapOut = new TreeMap<>();
         for (int i = 0; i < mappers.length; i++) {
             mappers[i] = new Mapper();
             List<Pair> pairs = mappers[i].map(inputSplits[i]);
@@ -57,48 +56,44 @@ public class WordCount {
 
     public Map<Integer, List<Pair>> partition(Map<Integer, List<Pair>> mapOut) {
 
-        Map<Integer, List<Pair>> partitionOut = new HashMap();
+        Map<Integer, List<Pair>> partitionOut = new TreeMap();
 
         for (int mapperId : mapOut.keySet()) {
-
             for (Pair pair : mapOut.get(mapperId)) {
-
+                
                 int reducerId = getPartition(pair.getKey());
-
+                
                 if (!partitionOut.containsKey(reducerId)) {
                     partitionOut.put(reducerId, new ArrayList<>());
                 }
                 partitionOut.get(reducerId).add(pair);
-
                 log(mapperId, reducerId, pair);
             }
         }
-
         printLogs();
-
         return partitionOut;
     }
 
-    public Map<Integer, List<GroupByPair>> group(Map<Integer, List<Pair>> partitionOut) {
+    public Map<Integer, List<GroupByPair>> combine(Map<Integer, List<Pair>> partitionOut) {
 
-        Map<Integer, List<GroupByPair>> groupOuts = new TreeMap<>();
+        Map<Integer, List<GroupByPair>> combineOuts = new TreeMap<>();
 
         for (int reducerId : partitionOut.keySet()) {
             List<Pair> groupIn = partitionOut.get(reducerId);
-            List<GroupByPair> groupOut = new Grouper().group(groupIn);
-            groupOuts.put(reducerId, groupOut);
+            List<GroupByPair> groupOut = new Combiner().combine(groupIn);
+            combineOuts.put(reducerId, groupOut);
         }
 
-        return groupOuts;
+        return combineOuts;
     }
 
-    public Map<Integer, List<Pair>> reduce(Map<Integer, List<GroupByPair>> groupOut) {
+    public Map<Integer, List<Pair>> reduce(Map<Integer, List<GroupByPair>> combineOut) {
 
         Map<Integer, List<Pair>> reduceOuts = new TreeMap<>();
 
-        for (int reducerId : groupOut.keySet()) {
+        for (int reducerId : combineOut.keySet()) {
             List<Pair> list = new ArrayList<>();
-            for (GroupByPair reduceIn : groupOut.get(reducerId)) {
+            for (GroupByPair reduceIn : combineOut.get(reducerId)) {
                 Pair reduceOut = new Reducer().reduce(reduceIn);
                 list.add(reduceOut);
             }
@@ -202,7 +197,5 @@ public class WordCount {
             }
             return Integer.compare(this.mapperId, o.mapperId);
         }
-
     }
-
 }

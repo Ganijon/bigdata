@@ -7,17 +7,17 @@ import java.util.List;
  *
  * @author Ganijon
  */
-public class Grouper {
+public class Combiner {
 
-    public List<GroupByPair> group(List<Pair> list) {
+    public List<GroupByPair> combine(List<Pair> list) {
 
-        List<GroupByPair> groupedList = new ArrayList<>();
+        List<GroupByPair> combinedList = new ArrayList<>();
 
         for (Pair p : list) {
 
             boolean found = false;
 
-            for (GroupByPair g : groupedList) {
+            for (GroupByPair g : combinedList) {
                 if (g.getKey().equals(p.getKey())) {
                     found = true;
                     g.addValue(1);
@@ -26,10 +26,10 @@ public class Grouper {
             }
 
             if (!found) {
-                groupedList.add(new GroupByPair(p.getKey(), p.getValue()));
+                combinedList.add(new GroupByPair(p.getKey(), p.getValue()));
             }
         }
 
-        return groupedList;
+        return combinedList;
     }
 }
