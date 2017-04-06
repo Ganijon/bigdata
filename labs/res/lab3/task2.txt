@@ -6,6 +6,10 @@ Input split 0 : [apple lemon mango salmon wheat apple]
 Input split 1 : [barley salmon apple orange carrot rice]
 Input split 2 : [mango carrot lemon apple rice tuna]
 
-Since there are three input splits, there will be three Mappers. Thus, Input split I is handled by Mapper I (I = 0, 1, 2). Assume that there are three reducers. Note that Mapper I and Reducer I run on the same machine (I = 0, 1, 2). 
+Since there are three input splits, there will be three Mappers. 
+Thus, Input split I is handled by Mapper I (I = 0, 1, 2). 
+Assume that there are three reducers. 
+Note that Mapper I and Reducer I run on the same machine (I = 0, 1, 2). 
 
-Further, let the partitioner  assign all words less than letter ‘k’ to Reducer 0,  all words greater than ‘r’ to Reducer 2 and  everything else to Reducer 1.
+Further, let the partitioner assign all words less than letter 'k' to Reducer 0,  
+all words greater than 'r' to Reducer 2 and  everything else to Reducer 1.

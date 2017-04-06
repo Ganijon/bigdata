@@ -1,10 +1,13 @@
 package lab3.task1;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.function.Supplier;
+import java.util.TreeMap;
+import lab2.task1.GroupByPair;
+import lab2.task1.Grouper;
 import lab2.task1.Mapper;
 import lab2.task1.Pair;
 import lab2.task1.Reducer;
@@ -14,6 +17,8 @@ import lab2.task1.Reducer;
  * @author Ganijon
  */
 public class WordCount {
+
+    private final Map<LogKey, List<Pair>> logs = new TreeMap<>();
 
     private Mapper[] mappers;
     private Reducer[] reducers;
@@ -50,36 +55,63 @@ public class WordCount {
         return mapOut;
     }
 
-    public void partition(Map<Integer, List<Pair>> mapOut) {
-        Map<Integer, List<Pair>> reducerIn = new HashMap();
-        
-        for(int mapperId: mapOut.keySet()) {
-             
-             for(Pair pair: mapOut.get(mapperId)) {
-                 
-                 int reducerId = getPartition(pair.getKey());
-                
-                 if(reducerId == mapperId) {
-                     
-                     
-                 }
-                 else {
-                      
-                 }
-             }
-                 
-             
-         }
-        
-        for(int i = 0; i < reducers.length; i++) {
-            
+    public Map<Integer, List<Pair>> partition(Map<Integer, List<Pair>> mapOut) {
+
+        Map<Integer, List<Pair>> partitionOut = new HashMap();
+
+        for (int mapperId : mapOut.keySet()) {
+
+            for (Pair pair : mapOut.get(mapperId)) {
+
+                int reducerId = getPartition(pair.getKey());
+
+                if (!partitionOut.containsKey(reducerId)) {
+                    partitionOut.put(reducerId, new ArrayList<>());
+                }
+                partitionOut.get(reducerId).add(pair);
+
+                log(mapperId, reducerId, pair);
+            }
         }
-        //System.out.printf("Pairs send from Mapper %d to Reducer %d\n", mapperId, reducerId);
+
+        printLogs();
+
+        return partitionOut;
     }
-    public void reduce(List<Pair> mapOut) {
+
+    public Map<Integer, List<GroupByPair>> group(Map<Integer, List<Pair>> partitionOut) {
+
+        Map<Integer, List<GroupByPair>> groupOuts = new TreeMap<>();
+
+        for (int reducerId : partitionOut.keySet()) {
+            List<Pair> groupIn = partitionOut.get(reducerId);
+            List<GroupByPair> groupOut = new Grouper().group(groupIn);
+            groupOuts.put(reducerId, groupOut);
+        }
+
+        return groupOuts;
+    }
+
+    public Map<Integer, List<Pair>> reduce(Map<Integer, List<GroupByPair>> groupOut) {
+
+        Map<Integer, List<Pair>> reduceOuts = new TreeMap<>();
+
+        for (int reducerId : groupOut.keySet()) {
+            List<Pair> list = new ArrayList<>();
+            for (GroupByPair reduceIn : groupOut.get(reducerId)) {
+                Pair reduceOut = new Reducer().reduce(reduceIn);
+                list.add(reduceOut);
+            }
+            reduceOuts.put(reducerId, list);
+        }
         
+        for (int reducerId : reduceOuts.keySet()) {
+            System.out.printf("Reducer %d output:\n", reducerId);
+            reduceOuts.get(reducerId).stream().forEach(System.out::println);
+        }
+        return reduceOuts;
     }
-    
+
     private int getPartition(Object key) {
         return (int) key.hashCode() % reducers.length;
     }
@@ -103,4 +135,74 @@ public class WordCount {
         }
         return sb.toString();
     }
+
+    private void log(int mapperId, int reducerId, Pair pair) {
+
+        LogKey logKey = new LogKey(mapperId, reducerId);
+
+        List<Pair> movingPairs = logs.get(logKey);
+
+        if (movingPairs == null) {
+            movingPairs = new ArrayList<>();
+            logs.put(logKey, movingPairs);
+        }
+        movingPairs.add(pair);
+    }
+
+    private void printLogs() {
+        for (LogKey key : logs.keySet()) {
+            System.out.printf("Pairs send from Mapper %d to Reducer %d\n", key.mapperId, key.reducerId);
+            logs.get(key).stream().forEach(System.out::println);
+        }
+    }
+
+    private class LogKey implements Comparable<LogKey> {
+
+        private int mapperId;
+        private int reducerId;
+
+        LogKey(int mid, int rid) {
+            mapperId = mid;
+            reducerId = rid;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 19;
+            hash += 31 * hash + reducerId;
+            hash += 31 * hash + mapperId;
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final LogKey other = (LogKey) obj;
+            if (this.reducerId != other.reducerId) {
+                return false;
+            }
+            if (this.mapperId != other.mapperId) {
+                return false;
+            }
+            return true;
+        }
+
+        @Override
+        public int compareTo(LogKey o) {
+            if (mapperId == o.mapperId) {
+                return Integer.compare(reducerId, o.reducerId);
+            }
+            return Integer.compare(this.mapperId, o.mapperId);
+        }
+
+    }
+
 }
