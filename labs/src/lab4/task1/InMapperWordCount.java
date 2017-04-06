@@ -125,7 +125,7 @@ public class InMapperWordCount {
         StringBuilder sb = new StringBuilder();
         while (scanner.hasNextLine()) {
             sb.append(scanner.nextLine());
-            sb.append("\n");
+            sb.append(" \n");
         }
         return sb.toString();
     }
