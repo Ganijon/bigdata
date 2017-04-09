@@ -1,0 +1,25 @@
+W1D5
+
+Solution Q1: Write an in-mapper combiner algorithm modifying algorithm 3.8 (That is, pairs approach)
+
+    class Mapper
+
+        method Initialize
+            H = new AssociativeArray       
+
+        method Map(docid a; doc d)
+            for all term w in doc d do
+                for all term u in Neighbors(w) do
+                    H{(w;u)} = H{(w;u)} + 1
+
+        method Close
+            for all pair (w;u) in H do
+                Emit((w,u), H{(w;u)})
+
+    class Reducer
+
+        method Reduce(pair p; counts [c1; c2; …])
+            sum = 0
+            for all count c in counts [c1; c2; …] do
+                sum = sum + c
+            Emit(pair p; sum)
