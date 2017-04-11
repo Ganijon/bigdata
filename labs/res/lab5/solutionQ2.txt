@@ -1,0 +1,27 @@
+W1D5
+
+Solution Q2: Write an in-mapper combiner algorithm modifying algorithm 3.9 (That is, stripes approach)
+
+    class Mapper
+        
+        method Initialize
+            H = new AssociativeArray
+        
+        method Map(docid a; doc d)
+            for all term w in doc d do
+                Hg = new AssociativeArray
+                for all term u in Neighbors(w) do
+                    Hg{u} = Hg{u} + 1 . //count words co-occurring with w
+                H{w} = sum( H{w}, Hg )
+        
+        method Close
+            for all term w in H do
+                Emit(term w; stripe H{w})
+    
+    class Reducer
+
+        method Reduce(term w; stripes [H1;H2;H3; : : :])
+            Hf = new AssociativeArray
+            for all stripe H in stripes [H1;H2;H3; : : : ] do
+                Sum(Hf; H)  //Element-wise sum
+            Emit(term w; stripe Hf )
