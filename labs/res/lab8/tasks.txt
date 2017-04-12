@@ -1,0 +1,12 @@
+W2D3
+
+Instructions 
+
+Consider the following inverted index:
+(964, 17), (1488, 63), (2240, 24), (3168, 32)
+
+Compress using following methods:
+
+(A) VarInt
+(B) Simple 9
+(C) Bit-Aligned
