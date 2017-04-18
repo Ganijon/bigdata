@@ -1,4 +1,4 @@
-package project.part1;
+package part2;
 
 /**
  *
@@ -11,11 +11,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-
-
-
  
-public class WordCount {
+public class Pairs {
 	
     public static void main(String args[]) throws Exception
     {
@@ -23,7 +20,7 @@ public class WordCount {
         if(args.length != 2)
         {
             System.err.println("Inavlid Command!");
-            System.err.println("Usage: WordCount <input path> <output path>");
+            System.err.println("Usage: Pairs <input path> <output path>");
             System.exit(0);
         }
         
@@ -32,10 +29,10 @@ public class WordCount {
         
         //Specify the class that hadoop needs to look in the JAR file
         //This Jar file is then sent to all the machines in the cluster
-        job.setJarByClass(WordCount.class);
+        job.setJarByClass(Pairs.class);
         
         //Set a meaningful name to the job
-        job.setJobName("Word Count");
+        job.setJobName("Pairs Relative Frequency");
         
         //Add the apth from where the file input is to be taken
         FileInputFormat.addInputPath(job, new Path(args[0]));
@@ -44,8 +41,8 @@ public class WordCount {
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         
         //Set the Mapper and the Reducer class
-        job.setMapperClass(WordCountMapper.class);
-        job.setReducerClass(WordCountReducer.class);
+        job.setMapperClass(PairsMapper.class);
+        job.setReducerClass(PairsReducer.class);
         
         //Set the type of the key and value of Mapper and reducer
         /*
