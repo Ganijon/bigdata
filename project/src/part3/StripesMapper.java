@@ -1,20 +1,17 @@
-package part2;
+package part3;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class PairsMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
-
-    public static final String STAR = "*";
-
-    private final IntWritable one = new IntWritable(1);
+public class StripesMapper extends Mapper<LongWritable, Text, Text, Map<String, Integer>> {
 
     @Override
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -23,22 +20,33 @@ public class PairsMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
 
         List<String> terms = Arrays.asList(line.split("\\s"));
 
-        int index = 0;
-        
+        int uIndex = 0;
+
         for (String w : terms) {
-            
-            for (String u : getNeighbors(terms, index)) {
-                context.write(new Pair(w, u), one);
-                context.write(new Pair(w, STAR), one);
+
+            Map<String, Integer> H = new HashMap<>();
+
+            for (String u : getNeighbors(terms, uIndex)) {
+
+                int count = 1;
+                if (H.containsKey(u)) {
+                    count = H.get(u);
+                    count++;
+                }
+                H.put(u, count);
             }
-            
-            index++;
+            uIndex++;
+
+            context.write(new Text(w), H);
         }
+
     }
 
     private List<String> getNeighbors(List<String> words, int index) {
         List<String> list = new ArrayList<>();
+
         for (int i = index + 1; i < words.size(); i++) {
+
             if (words.get(index).equals(words.get(i))) {
                 break;
             }

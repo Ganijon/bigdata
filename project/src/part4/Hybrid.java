@@ -1,10 +1,11 @@
-package part2;
+package part4;
 
 /**
  *
  * @author 985565
  */
 
+import java.util.HashMap;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -12,7 +13,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
  
-public class Pairs {
+public class Hybrid {
 	
     public static void main(String args[]) throws Exception
     {
@@ -29,10 +30,10 @@ public class Pairs {
         
         //Specify the class that hadoop needs to look in the JAR file
         //This Jar file is then sent to all the machines in the cluster
-        job.setJarByClass(Pairs.class);
+        job.setJarByClass(Hybrid.class);
         
         //Set a meaningful name to the job
-        job.setJobName("Compute Relative Frequency - Pairs Approach");
+        job.setJobName("Compute Relative Frequency - Hybrid Approach");
         
         //Add the apth from where the file input is to be taken
         FileInputFormat.addInputPath(job, new Path(args[0]));
@@ -41,16 +42,20 @@ public class Pairs {
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
         
         //Set the Mapper and the Reducer class
-        job.setMapperClass(PairsMapper.class);
-        job.setReducerClass(PairsReducer.class);
+        job.setMapperClass(HybridMapper.class);
+        job.setReducerClass(HybridReducer.class);
         
-        //Set the type of the key and value of Mapper and reducer
+        //Set the type of the key and value of Mapper and Reducer
         /*
          * If the Mapper output type and Reducer output type are not the same then
          * also include setMapOutputKeyClass() and setMapOutputKeyValue()
          */
-        job.setOutputKeyClass(Pair.class);
-        job.setOutputValueClass(IntWritable.class);
+        job.setOutputKeyClass(Text.class);
+        job.setOutputValueClass(HashMap.class);
+        
+        
+        job.setMapOutputKeyClass(Pair.class);
+        job.setMapOutputValueClass(IntWritable.class);
         
         //Start the job and wait for it to finish. And exit the program based on
         //the success of the program

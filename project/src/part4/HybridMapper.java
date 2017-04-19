@@ -1,4 +1,4 @@
-package part2;
+package part4;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +10,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class PairsMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
-
-    public static final String STAR = "*";
+public class HybridMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
 
     private final IntWritable one = new IntWritable(1);
 
@@ -29,9 +27,8 @@ public class PairsMapper extends Mapper<LongWritable, Text, Pair, IntWritable> {
             
             for (String u : getNeighbors(terms, index)) {
                 context.write(new Pair(w, u), one);
-                context.write(new Pair(w, STAR), one);
             }
-            
+
             index++;
         }
     }
