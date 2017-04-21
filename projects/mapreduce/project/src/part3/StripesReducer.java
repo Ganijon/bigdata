@@ -1,5 +1,10 @@
 package part3;
 
+/**
+ *
+ * @author ganijon
+ */
+
 import java.io.IOException;
 
 import org.apache.hadoop.io.IntWritable;

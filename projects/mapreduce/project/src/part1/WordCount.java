@@ -2,8 +2,9 @@ package part1;
 
 /**
  *
- * @author 985565
+ * @author ganijon
  */
+
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;

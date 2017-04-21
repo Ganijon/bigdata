@@ -2,7 +2,7 @@ package part3;
 
 /**
  *
- * @author 985565
+ * @author ganijon
  */
 
 import org.apache.hadoop.fs.Path;

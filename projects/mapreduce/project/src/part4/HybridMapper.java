@@ -1,5 +1,10 @@
 package part4;
 
+/**
+ *
+ * @author ganijon
+ */
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;

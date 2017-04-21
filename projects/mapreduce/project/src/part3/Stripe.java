@@ -1,5 +1,10 @@
 package part3;
 
+/**
+ *
+ * @author ganijon
+ */
+
 import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Writable;
 
