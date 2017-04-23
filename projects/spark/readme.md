@@ -1,11 +1,14 @@
 
 Create new directory for the project
+
 $ hadoop fs -mkdir /user/cloudera/sparkweblog
 
 Upload sample data to the directory
+
 $ hadoop fs -put access_log /user/cloudera/sparkweblog
 
 Launch Jar file by submitting it to spark
+
 $ spark-submit --class edu.mum.UriHitCount \
 --master local --deploy-mode client --executor-memory 1g \
 --name UriHitCount --conf "spark.app.id=UriHitCount" \
