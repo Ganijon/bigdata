@@ -26,7 +26,7 @@ object LogAnalyzer extends App {
 
   // Calculate statistics based on the content size.
   val contentSizes: RDD[Long] = accessLogs.map(_.contentSize).cache()
-  println("Content Size Avg: %s, Min: %s, Max: %s".format(
+  println("##### Content Size Avg: %s, Min: %s, Max: %s".format(
     contentSizes.reduce(_ + _) / contentSizes.count,
     contentSizes.min,
     contentSizes.max))
@@ -36,7 +36,7 @@ object LogAnalyzer extends App {
     .map(_.responseCode -> 1L)
     .reduceByKey(_ + _)
     .take(100)
-  println(s"""Response code counts: ${responseCodeToCount.mkString("[", ",", "]")}""")
+  println(s"""##### Response code counts: ${responseCodeToCount.mkString("[", ",", "]")}""")
 
   // Any IPAddress that has accessed the server more than 10 times.
   val ipAddresses: Array[String] = accessLogs
@@ -45,14 +45,14 @@ object LogAnalyzer extends App {
     .filter(_._2 > 10)
     .map(_._1)
     .take(100)
-  println(s"""IPAddresses > 10 times: ${ipAddresses.mkString("[", ",", "]")}""")
+  println(s"""##### IPAddresses > 10 times: ${ipAddresses.mkString("[", ",", "]")}""")
 
   // Top Endpoints.
   val topEndpoints: Array[(String, Long)] = accessLogs
     .map(_.endpoint -> 1L)
     .reduceByKey(_ + _)
     .top(10)(Ordering.by[(String, Long), Long](_._2))
-  println(s"""Top Endpoints: ${topEndpoints.mkString("[", ",", "]")}""")
+  println(s"""##### Top Endpoints: ${topEndpoints.mkString("[", ",", "]")}""")
 
   sc.stop()
 }

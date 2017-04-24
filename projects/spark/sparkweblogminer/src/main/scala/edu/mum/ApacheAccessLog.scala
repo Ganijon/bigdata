@@ -1,7 +1,8 @@
 package edu.mum
 
 /** An entry of Apache access log. */
-case class ApacheAccessLog(ipAddress: String,
+case class ApacheAccessLog(
+    ipAddress: String,
     clientIdentd: String,
     userId: String,
     dateTime: String,
@@ -20,13 +21,16 @@ object ApacheAccessLog {
    *
    * @param log A string, typically a line from a log file
    * @return An entry of Apache access log
-   * @throws RuntimeException Unable to parse the string
    */
   def parseLogLine(log: String): ApacheAccessLog = {
+    
+      
     log match {
-      case PATTERN(ipAddress, clientIdentd, userId, dateTime, method, endpoint, protocol, responseCode, contentSize) => ApacheAccessLog(ipAddress, clientIdentd, userId, dateTime, method, endpoint, protocol, responseCode.toInt,
+      case PATTERN(ipAddress, clientIdentd, userId, dateTime, method, endpoint, protocol, responseCode, contentSize) => 
+        ApacheAccessLog(ipAddress, clientIdentd, userId, dateTime, method, endpoint, protocol, responseCode.toInt,
         contentSize.toLong)
-      case _ => throw new RuntimeException(s"""Cannot parse log line: $log""")
+      //case _ => throw new RuntimeException(s"""Cannot parse log line: $log""")
+      case _ => ApacheAccessLog("", "CAN'T PARSE THIS RECORD", "", "", "", "", "", 0, 0)
     }
   }
 }
