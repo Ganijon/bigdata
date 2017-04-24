@@ -15,6 +15,8 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
+import parts.WordPair;
+
 public class PairsMapper extends
 		Mapper<LongWritable, Text, WordPair, IntWritable> {
 

@@ -1,4 +1,4 @@
-package part4;
+package part4a;
 
 /**
  *
@@ -8,26 +8,19 @@ package part4;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map.Entry;
-
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.MapReduceBase;
-import org.apache.hadoop.mapred.Mapper;
-import org.apache.hadoop.mapred.OutputCollector;
-import org.apache.hadoop.mapred.Reporter;
+import org.apache.hadoop.mapreduce.Mapper;
 
 import parts.WordPair;
 
-public class HybridMapper extends MapReduceBase implements
-		Mapper<LongWritable, Text, WordPair, IntWritable> {
+public class HybridMapper extends Mapper<LongWritable, Text, WordPair, IntWritable> {
 
 	private HashMap<WordPair, Integer> outputMap = new HashMap<>();
 
 	@Override
-	public void map(LongWritable key, Text values,
-			OutputCollector<WordPair, IntWritable> output, Reporter r)
-			throws IOException {
+	public void map(LongWritable key, Text values, Context context) throws IOException, InterruptedException {
 
 		String input = values.toString();
 		String[] readLines = input.split("//.*\n");
@@ -50,9 +43,7 @@ public class HybridMapper extends MapReduceBase implements
 		}
 
 		for (Entry<WordPair, Integer> mapEntry : outputMap.entrySet()) {
-			output.collect(mapEntry.getKey(),
-					new IntWritable(mapEntry.getValue()));
+			context.write(mapEntry.getKey(), new IntWritable(mapEntry.getValue()));
 		}
 	}
-
 }

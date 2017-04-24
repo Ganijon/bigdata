@@ -12,6 +12,8 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Reducer;
 
+import parts.Stripe;
+
 public class StripesReducer extends Reducer<Text, Stripe, Text, Stripe> {
 
 	@Override

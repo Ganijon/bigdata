@@ -18,6 +18,8 @@ import org.apache.hadoop.io.MapWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
+import parts.Stripe;
+
 public class StripesMapper extends
 		Mapper<LongWritable, Text, Text, Stripe> {
 

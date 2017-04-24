@@ -16,6 +16,8 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 
+import parts.WordPair;
+
 
 public class Hybrid extends Configured implements Tool {
 
