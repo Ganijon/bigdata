@@ -1,4 +1,4 @@
-package mum.edu
+package edu.mum
 
 /** An entry of Apache access log. */
 case class ApacheAccessLog(ipAddress: String,

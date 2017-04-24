@@ -3,8 +3,6 @@ package edu.mum
 import org.apache.spark.rdd.RDD
 import org.apache.spark.{ SparkConf, SparkContext }
 
-import com.databricks.apps.logs.ApacheAccessLog
-
 /**
  * The LogAnalyzer takes in an apache access log file and
  * computes some statistics on them.
