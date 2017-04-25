@@ -1,0 +1,20 @@
+﻿Instructions
+Resources:
+1. www.tutorialspoint.com//apache_spark/index.htm
+2.www.monitorware.com/en/logsamples/apache.php
+
+
+SPARK PROJECT.
+/usr/bin/spark-shell
+/etc/spark/conf
+
+
+TO USE HDFS  (hdfs:///user/cloudera/ ....) and for local file (file:///home/...) in the RDD creation.
+
+
+Part 5. [3 points] Please provide detailed instructions similar to one you did for mapreduce. Otherwise credit is 0.
+Part 6. [4 points] Analyze Apache log files. Be creative!
+Part 7. [6 Point] In class Presentation.
+Part 8.
+1. [1 point] Submit your Presentation (doc/pdf/ppt only) (Sakai).
+2. [2 point] Uninstall what you had installed from University machines by 4:00 PM FRIDAY 28 APR. 2017. This deadline is for 8(b) alone.
