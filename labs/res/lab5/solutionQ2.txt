@@ -5,18 +5,18 @@ Solution Q2: Write an in-mapper combiner algorithm modifying algorithm 3.9 (That
     class Mapper
         
         method Initialize
-            H = new AssociativeArray
+            G = new AssociativeArray
         
         method Map(docid a; doc d)
             for all term w in doc d do
-                Hg = new AssociativeArray
+                H = new AssociativeArray
                 for all term u in Neighbors(w) do
-                    Hg{u} = Hg{u} + 1 . //count words co-occurring with w
-                H{w} = sum( H{w}, Hg )
+                    H{u} = H{u} + 1      // count words co-occurring with w
+                G{w} = sum(G{w}, H)      // element-wise sum
         
         method Close
-            for all term w in H do
-                Emit(term w; stripe H{w})
+            for all term w in G do
+                Emit(term w; stripe G{w})
     
     class Reducer
 
